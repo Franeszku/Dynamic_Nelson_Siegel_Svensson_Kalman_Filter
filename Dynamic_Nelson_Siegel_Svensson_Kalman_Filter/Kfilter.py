@@ -23,11 +23,14 @@ def Kfilter(logLik,N,T,Y,Z,a_t,P_t,HH,a_tt,P_tt,v2,v1,phi,mu,QQ,frct,ahead,Yf,li
     if frct:
         if t>((T-1)-1): # 347 > 346
             for m in range(0,ahead):
-                Yf[m,:] = Z.dot(a_t[t + m,:])
-                a_tt[t + m,:] = a_t[t + m, ]
-                P_tt[:,:,t + m] = P_t[:,:,t + m]
                 a_t[t + m + 1,:] = phi.dot(a_tt[t + m,:]) + (np.identity(N) - phi).dot(mu)
                 P_t[:,:,t + m + 1] = phi.dot(P_tt[:,:,t + m]).dot(phi.T) + QQ
+                Yf[m,:] = Z.dot(a_t[t + m + 1,:])
+
+                if m < ahead-1:
+                    a_tt[t + m +1 ,:] = a_t[t + m + 1, ]
+                    P_tt[:,:,t + m +1] = P_t[:,:,t + m]
+                
     if lik:
         return(-logLik)
     else:
