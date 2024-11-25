@@ -29,7 +29,7 @@ def Kfilter(logLik,N,T,Y,Z,a_t,P_t,HH,a_tt,P_tt,v2,v1,phi,mu,QQ,frct,ahead,Yf,li
 
                 if m < ahead-1:
                     a_tt[t + m +1 ,:] = a_t[t + m + 1, ]
-                    P_tt[:,:,t + m +1] = P_t[:,:,t + m]
+                    P_tt[:,:,t + m +1] = P_t[:,:,t + m + 1]
                 
     if lik:
         return(-logLik)
